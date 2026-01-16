@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root {
+  --neon-pink: #ff00ff;
+  --neon-cyan: #00ffff;
+  --neon-purple: #9d00ff;
+  --bg-dark: #050508;
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Utility */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 30px rgba(157, 0, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Neon Text & Glows */
+.text-neon-pink {
+  color: var(--neon-pink);
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.text-neon-cyan {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.text-neon-purple {
+  color: var(--neon-purple);
+  text-shadow: 0 0 15px rgba(157, 0, 255, 0.6);
+}
+
+.bg-neon-gradient {
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+}
+
+/* Animations */
+@keyframes neon-pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(157, 0, 255, 0.4), 0 0 10px rgba(157, 0, 255, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(157, 0, 255, 0.7), 0 0 30px rgba(157, 0, 255, 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 5px rgba(157, 0, 255, 0.4), 0 0 10px rgba(157, 0, 255, 0.2);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2s infinite ease-in-out;
+}
+
+/* Glow Blobs */
+.glow-blob {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.1;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.glow-pink {
+  background: var(--neon-pink);
+}
+
+.glow-cyan {
+  background: var(--neon-cyan);
+}
+
+.glow-purple {
+  background: var(--neon-purple);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-purple);
+}
