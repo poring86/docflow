@@ -6,9 +6,14 @@ import axios from 'axios';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 
+import { AiService } from './ai.service';
+
 @Injectable()
 export class DocumentsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private aiService: AiService
+  ) {}
 
   async updateFile(id: string, downloadUrl: string) {
     const doc = await this.findOne(id);
@@ -33,6 +38,9 @@ export class DocumentsService {
       where: { id },
       data: { updatedAt: new Date() },
     });
+
+    // Re-index for AI
+    await this.aiService.indexDocument(id);
   }
 
 
@@ -40,7 +48,7 @@ export class DocumentsService {
     // In a real app, you would save the file to a specific path
     // For now, we assume Multer saved it to the 'uploads' folder mapping
     
-    return this.prisma.document.create({
+    const doc = await this.prisma.document.create({
       data: {
         filename: file.originalname,
         path: file.path,
@@ -48,6 +56,11 @@ export class DocumentsService {
         mimeType: file.mimetype,
       },
     });
+
+    // Index for AI
+    await this.aiService.indexDocument(doc.id);
+
+    return doc;
   }
 
   async findAll() {

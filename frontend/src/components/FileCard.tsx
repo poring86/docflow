@@ -1,7 +1,7 @@
 import { Card, CardBody, CardFooter } from "@heroui/react";
 import type { Document } from "../api";
 import { FaFilePdf, FaFileWord, FaFileImage, FaFileAlt, FaFileExcel, FaFilePowerpoint } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+
 
 interface FileCardProps {
   file: Document;
@@ -9,7 +9,7 @@ interface FileCardProps {
 }
 
 export const FileCard = ({ file, onPress }: FileCardProps) => {
-  const navigate = useNavigate();
+
 
   const getIcon = () => {
     const ext = file.filename.split('.').pop()?.toLowerCase() || "";

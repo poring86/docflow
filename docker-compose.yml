@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:15
+    image: ankane/pgvector:v0.5.0
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -29,8 +29,8 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/docflow?schema=public
+    env_file:
+      - ./backend/.env
     depends_on:
       - postgres
 

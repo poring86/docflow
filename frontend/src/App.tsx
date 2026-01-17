@@ -3,17 +3,23 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Editor from "./pages/Editor";
 
+import { useEffect } from "react";
+
 function App() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+  }, []);
+
   return (
     <HeroUIProvider navigate={navigate}>
-      <main className="dark text-foreground bg-background min-h-screen">
+      <div className="dark text-foreground bg-background min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/editor/:id" element={<Editor />} />
         </Routes>
-      </main>
+      </div>
     </HeroUIProvider>
   );
 }
